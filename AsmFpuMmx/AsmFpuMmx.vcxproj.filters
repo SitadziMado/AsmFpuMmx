@@ -21,6 +21,9 @@
     <ClInclude Include="targetver.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="Func.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -29,5 +32,10 @@
     <ClCompile Include="AsmFpuMmx.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <MASM Include="Func.asm">
+      <Filter>Исходные файлы</Filter>
+    </MASM>
   </ItemGroup>
 </Project>
