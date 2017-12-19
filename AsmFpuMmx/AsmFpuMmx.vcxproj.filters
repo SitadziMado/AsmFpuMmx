@@ -34,7 +34,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <MASM Include="Func.asm">
+    <MASM Include="Fpu.asm">
+      <Filter>Исходные файлы</Filter>
+    </MASM>
+    <MASM Include="Mmx.asm">
       <Filter>Исходные файлы</Filter>
     </MASM>
   </ItemGroup>

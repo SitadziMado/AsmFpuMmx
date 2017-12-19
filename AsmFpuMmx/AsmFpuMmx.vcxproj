@@ -162,7 +162,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <MASM Include="Func.asm" />
+    <MASM Include="Fpu.asm" />
+    <MASM Include="Mmx.asm" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
