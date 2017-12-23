@@ -10,7 +10,7 @@ ONES EQU 0FFFFFFFFh
 
 .code
 
-@test_edi_len macro
+@test_edi_len macro @len 
 
                 mov ecx, $len
                 bsf eax, ecx
@@ -19,7 +19,7 @@ ONES EQU 0FFFFFFFFh
                 cmp eax, MMX_LEN_LOG2
                 jb null
                 
-                shr ecx, MMX_LEN_LOG2
+                shr ecx, MMX_LEN_LOG2 - @len
     
                 mov edi, $dst
                 test edi, edi
@@ -29,9 +29,9 @@ ONES EQU 0FFFFFFFFh
 
 endm
 
-@prologue macro
+@prologue macro @len 
 
-                @test_edi_len
+                @test_edi_len @len
                 
                 mov esi, $src
                 test esi, esi
@@ -77,7 +77,7 @@ mmx_add_bytes proc \
     $src : PTR QWORD, \
     $len : DWORD
 
-                @prologue
+                @prologue 0
                 paddb mm0, mm1
                 @epilogue
     
@@ -88,7 +88,7 @@ mmx_add_words proc \
     $src : PTR QWORD, \
     $len : DWORD
 
-                @prologue
+                @prologue 1
                 paddsw mm0, mm1
                 @epilogue
     
@@ -99,7 +99,7 @@ mmx_sub_bytes proc \
     $src : PTR QWORD, \
     $len : DWORD
 
-                @prologue
+                @prologue 0
                 psubb mm0, mm1
                 @epilogue
     
@@ -110,7 +110,7 @@ mmx_sub_words proc \
     $src : PTR QWORD, \
     $len : DWORD
 
-                @prologue
+                @prologue 1
                 psubsw mm0, mm1
                 @epilogue
     
@@ -121,9 +121,10 @@ mmx_mul_words_by_power_of_two proc \
     $len : DWORD, \
     $power_of_two : DWORD
 
-                @test_edi_len
+                @test_edi_len 1
                 
                 mov eax, $power_of_two
+                movq mm0, [edi]
                 movd mm1, eax
                 
     @@:         psllw mm0, mm1
@@ -137,9 +138,10 @@ mmx_div_words_by_power_of_two proc \
     $len : DWORD, \
     $power_of_two : DWORD
 
-                @test_edi_len
+                @test_edi_len 1
                 
                 mov eax, $power_of_two
+                movq mm0, [edi]
                 movd mm1, eax
                 
     @@:         psraw mm0, mm1
@@ -153,7 +155,7 @@ mmx_are_bytes_eq proc \
     $src : PTR QWORD, \
     $len : DWORD
 
-                @prologue
+                @prologue 0
                 
                 pcmpeqb mm0, mm1
                 movd eax, mm0
@@ -180,7 +182,7 @@ mmx_are_bytes_gt proc \
     $src : PTR QWORD, \
     $len : DWORD
 
-                @prologue
+                @prologue 0
                 
                 pcmpgtb mm0, mm1
                 movd eax, mm0
