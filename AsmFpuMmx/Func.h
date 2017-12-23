@@ -12,8 +12,14 @@ extern "C" {
     extern double calc_epsilon(double x, double eps);
 
     extern uint8_t* mmx_add_bytes(
-        uint8_t* dst, 
-        const uint8_t* src, 
+        uint8_t* dst,
+        const uint8_t* src,
+        size_t len
+    );
+
+    extern int16_t* mmx_add_words(
+        int16_t* dst,
+        const int16_t* src,
         size_t len
     );
 
@@ -23,14 +29,20 @@ extern "C" {
         size_t len
     );
 
-    extern uint16_t* mmx_mul_words_by_power_of_two(
-        uint16_t* array,
+    extern int16_t* mmx_sub_words(
+        int16_t* dst,
+        const int16_t* src,
+        size_t len
+    );
+
+    extern int16_t* mmx_mul_words_by_power_of_two(
+        int16_t* array,
         size_t len, 
         size_t power_of_two
     );
 
-    extern uint8_t* mmx_div_words_by_power_of_two(
-        uint16_t* array,
+    extern int8_t* mmx_div_words_by_power_of_two(
+        int16_t* array,
         size_t len, 
         size_t power_of_two
     );
