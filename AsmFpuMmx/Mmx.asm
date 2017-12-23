@@ -64,7 +64,9 @@ endm
 endm
 
 public mmx_add_bytes
+public mmx_add_words
 public mmx_sub_bytes
+public mmx_sub_words
 public mmx_mul_words_by_power_of_two
 public mmx_div_words_by_power_of_two
 public mmx_are_bytes_eq
@@ -81,6 +83,17 @@ mmx_add_bytes proc \
     
 mmx_add_bytes endp
 
+mmx_add_words proc \
+    $dst : PTR QWORD, \
+    $src : PTR QWORD, \
+    $len : DWORD
+
+                @prologue
+                paddsw mm0, mm1
+                @epilogue
+    
+mmx_add_words endp
+
 mmx_sub_bytes proc \
     $dst : PTR QWORD, \
     $src : PTR QWORD, \
@@ -91,6 +104,17 @@ mmx_sub_bytes proc \
                 @epilogue
     
 mmx_sub_bytes endp
+
+mmx_sub_words proc \
+    $dst : PTR QWORD, \
+    $src : PTR QWORD, \
+    $len : DWORD
+
+                @prologue
+                psubsw mm0, mm1
+                @epilogue
+    
+mmx_sub_words endp
 
 mmx_mul_words_by_power_of_two proc \
     $dst : PTR QWORD, \
